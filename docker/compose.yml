@@ -1,0 +1,70 @@
+version: "3"
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: zhukov-s-a-net-prometheus
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    networks:
+      - zhukov-s-a-my-net-wh
+    restart: always
+
+  pushgateway:
+    image: prom/pushgateway
+    container_name: zhukov-s-a-net-pushgateway
+    ports:
+      - 9091:9091
+    networks:
+      - zhukov-s-a-my-net-wh
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+
+  grafana:
+    image: grafana/grafana
+    container_name: zhukov-s-a-net-grafana
+    environment:
+      GF_PATHS_CONFIG: /etc/grafana/custom.ini
+    ports:
+      - 80:3000
+    volumes:
+      - ./grafana:/etc/grafana
+      - grafana-data:/var/lib/grafana
+    networks:
+      - zhukov-s-a-my-net-wh
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+
+  alertmanager:
+    image: prom/alertmanager
+    container_name: zhukov-s-a-net-alertmanager
+    ports:
+      - 9093:9093
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+      - alertmanager-data:/data
+    networks:
+      - zhukov-s-a-my-net-wh
+    command: --config.file=/etc/alertmanager/alertmanager.yml
+    restart: always
+    depends_on:
+      - prometheus
+
+volumes:
+  prometheus-data:
+  grafana-data:
+  alertmanager-data:
+
+networks:
+  zhukov-s-a-my-netology-wh:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1

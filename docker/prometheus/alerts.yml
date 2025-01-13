@@ -1,0 +1,7 @@
+groups:
+  - name: Neto
+    rules: 
+      - alert: Danger
+        expr: up == 0
+        for: 10s
+
