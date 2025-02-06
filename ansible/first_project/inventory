@@ -1,0 +1,13 @@
+[my]
+###158.160.69.49 ansible_user=sammy2_ya
+158.160.3.109 ansible_user=sammy1_ya
+
+#[servers]
+#192.168.1.[1:5]
+
+#[another_servers]
+#my[A:C].example.com
+
+#[all_servers:children]
+#servers
+#another_servers

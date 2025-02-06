@@ -1,0 +1,5 @@
+---
+# tasks file for ./roles/myrole-2
+- name: Debug message
+  debug:
+    msg: "{{ ansible_facts.all_ipv4_addresses }}"

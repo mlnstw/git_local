@@ -1,0 +1,14 @@
+---
+- name: Play 3
+  hosts: my
+  become: yes
+  vars:
+    neto: NETOLOGY courses 
+  tasks:
+
+  - name: motd edit 
+    ansible.builtin.lineinfile:
+      path: /etc/update-motd.d/00-header
+      regexp: '^print*'
+      line: printf "Welcome to {{ neto }}  \ IP adr = {{ ansible_facts.all_ipv4_addresses }} \ hostname = {{ ansible_user_id }} \ Have a nice day administrator"
+

@@ -45,7 +45,7 @@ services:
     image: prom/alertmanager
     container_name: zhukov-s-a-net-alertmanager
     ports:
-      - 9093:9093
+      - 9093:9093 
     volumes:
       - ./alertmanager:/etc/alertmanager
       - alertmanager-data:/data

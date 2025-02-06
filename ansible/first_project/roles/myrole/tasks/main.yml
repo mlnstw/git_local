@@ -1,0 +1,27 @@
+---
+# tasks file for ./roles/myrole
+- name: Apache web server
+  apt: 
+    name: 
+      - apache2
+    state: latest
+    update_cache: yes
+  
+  
+- name: Create index using Jinja
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+ # notify: 
+  #  - Restart apache
+
+- name: service apache 
+  ansible.builtin.service:
+      name: tuned
+      state: started
+      enabled: yes
+
+- name: Check that you can connect (GET) to a page and it returns a status 200
+  ansible.builtin.uri:
+    url: "http://158.160.3.109"
+

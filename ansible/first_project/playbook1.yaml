@@ -1,0 +1,11 @@
+---
+- name: Play 1
+  hosts: my
+  become: yes
+  tasks:
+
+  - name: Download and untar
+    ansible.builtin.unarchive:
+      src: https://dlcdn.apache.org/kafka/3.9.0/kafka-3.9.0-src.tgz
+      dest: ~/
+      remote_src: yes

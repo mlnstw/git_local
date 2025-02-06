@@ -1,0 +1,37 @@
+---
+- name: Play 1
+  hosts: my
+  become: yes
+  tasks:
+
+  - name: Debug message
+    debug:
+      msg: "{{ ansible_facts.all_ipv4_addresses }}"
+
+  - name: Ensure that vim editor installed.
+    apt:
+      name:
+        - vim
+        - nano
+        - htop
+      state:  latest
+      update_cache: yes
+
+  #- name: Remove "nano" package
+   # ansible.builtin.apt:
+    #  name: nano
+     # state: absent
+
+#  - name: Change ssh config
+ #   lineinfile:
+  #    path: /etc/ssh/sshd_config
+   #   regexp: '^PasswordAuthentication'
+    #  line: PasswordAuthentication yes
+  #  notify:
+   #   - Restart sshd
+
+#  handlers:
+ # - name: Restart sshd
+  #  service:
+   #   name: sshd
+    #  state: restarted

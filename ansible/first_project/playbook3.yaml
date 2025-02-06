@@ -1,0 +1,13 @@
+---
+- name: Play 3
+  hosts: my
+  become: yes
+  vars:
+    neto: NETOLOGY courses
+  tasks:
+
+  - name: motd edit 
+    ansible.builtin.lineinfile:
+      path: /etc/update-motd.d/00-header
+      regexp: '^print*'
+      line: printf "Welcome to {{ neto }}"; \ printf "$DISTRIB_DESCRIPTION" "$(uname -o)" "$(uname -r)" "$(uname -m)"
